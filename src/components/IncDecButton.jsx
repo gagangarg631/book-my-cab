@@ -1,33 +1,58 @@
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
+import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import React, { useState } from "react";
 
-const IncDecButton = ({ max }) => {
-    const [count, setCount] = useState(1);
-  return (
-    <View style={{
-        height: '100%',
-        width: '100%',
-        borderRadius: 10,
-        display: 'flex',
-        flexDirection: 'row',
-        backgroundColor: 'orange'
-    }}>
-      <TouchableOpacity style={styles.btns} onPress={() => setCount(prevCount => prevCount===1 ? prevCount : prevCount-1)}><Text>-</Text></TouchableOpacity>
-      <Text style={styles.text}>{ count }</Text>
-      <TouchableOpacity style={styles.btns} onPress={() => setCount(prevCount => prevCount===max ? prevCount : prevCount+1)}><Text>+</Text></TouchableOpacity>
-    </View>
-  )
-}
+const IncDecButton = ({ max=10, count, setCount }) => {
+    return (
+        <View style={styles.container}>
+            <TouchableOpacity 
+            style={styles.childs}
+            onPress={() => setCount(prevCount => prevCount===1 ? prevCount : prevCount-1)}
+            > 
+                <Text style={styles.text}>-</Text>
+            </TouchableOpacity>
+            <View style={styles.counterBox}>
+                <Text style={styles.counter}>{ count }</Text>
+            </View>
+            <TouchableOpacity 
+            style={styles.childs}
+            onPress={() => setCount(prevCount => prevCount===max ? prevCount : prevCount+1)}
+            >
+                <Text style={styles.text}>+</Text>
+            </TouchableOpacity>
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
-    btns: {
+    container: {
+        height: '100%',
+        borderRadius: 10,
+        display: "flex",
+        flexDirection: "row",
+        overflow: "hidden",
+    },
+    childs: {
         flex: 1,
-        fontSize: 40,
-        fontWeight: 'bold'
+        height: "100%",
+        display: "flex",
+        justifyContent: "center",
+        backgroundColor: "blue",
     },
     text: {
-        flex: 1
-    }
-})
+        textAlign: "center",
+        fontSize: 20,
+        color: "white",
+    },
+    counterBox: {
+        width: "33%",
+        display: "flex",
+        justifyContent: "center",
+    },
+    counter: {
+        backgroundColor: "white",
+        textAlign: "center",
+        fontSize: 20,
+    },
+});
 
-export default IncDecButton
+export default IncDecButton;

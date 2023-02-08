@@ -8,11 +8,14 @@ import React, { useState } from 'react';
 import Cars from '../../CarsAvailable';
 import Car from './Car';
 import IncDecButton from './IncDecButton';
+import BlackButton from './BlackButton';
 
 const ChooseCab = () => {
   const [index, setIndex] = useState(0);
+  const [passengerCount, setPassengerCount] = useState(1);
+  const [amount, setAmount] = useState(250);
 
-  const handleSelect = (selectedIndex, e) => {
+  const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
 
@@ -45,33 +48,58 @@ const ChooseCab = () => {
           }
         </Carousel>
       </View>
-      <View style={{ height: '40%', borderWidth: 1, display: 'flex', flexDirection: 'row' }}>
+      <View style={styles.info}>
           <View style={styles.individualInfoBox}>
             <MaterialCmtyIcons name="map-marker-distance" size={60} />
-            <Text>21 km</Text>
+            <Text style={{ fontSize: 20}}>21 km</Text>
           </View>
           <View style={styles.individualInfoBox}>
             <IonIcons name="person" size={60} />
-            <View style={{ height: 60, width: 100 }}>
-              <IncDecButton />
+            <View style={{ height: 20, width: 100 }}>
+              <IncDecButton count={passengerCount} setCount={(count) => setPassengerCount(count)} />
             </View>
           </View>
           <View style={styles.individualInfoBox}>
             <MaterialIcons name="attach-money" size={60} />
-            <Text>21 km</Text>
+            <Text style={{ fontSize: 20}}>{ amount }</Text>
           </View>
+      </View>
+      <View style={styles.btns}>
+        <View style={{ flex: 1 }}>
+          <BlackButton value="<-" />
+        </View>
+        <View style={{ flex: 4 }}>
+          <BlackButton value="Request a trip" />
+        </View>
       </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
+  info: {
+    height: '30%', 
+    display: 'flex', 
+    flexDirection: 'row', 
+    alignItems: 'center',
+  },
+
   individualInfoBox: {
-    borderWidth: 1, 
     flex: 1,
     display: 'flex',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
+
+  btns: {
+    height: '15%',
+    display: 'flex',
+    flexDirection: 'row',
+    padding: 10,
+    gap: 10,
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+  },
 })
 
 export default ChooseCab
